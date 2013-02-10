@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="Simulator">
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
+        <properties>
+            <property value="propertyPlaceholderConfigurer" name="id"/>
+            <property name="name"/>
+            <property value="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="locations" name="name"/>
+                <property value="3" name="auxiliary;wrapIn"/>
+                <property value="3" name="auxiliary;index"/>
+                <property-collection name="@http://www.springframework.org/schema/beans/list;1">
+                    <property value="4" name="auxiliary;wrapIn"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property-collection name="@http://www.springframework.org/schema/beans/value;1">
+                        <property value="classpath:/config.properties" name=""/>
+                        <property value="5" name="auxiliary;wrapIn"/>
+                        <property value="5" name="auxiliary;index"/>
+                    </property-collection>
+                </property-collection>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#2">
+        <properties>
+            <property value="fakeFtpServer" name="id"/>
+            <property name="name"/>
+            <property value="org.mockftpserver.fake.FakeFtpServer" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property value="start" name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="serverControlPort" name="name"/>
+                <property value="${ftp.port}" name="value"/>
+                <property value="7" name="auxiliary;wrapIn"/>
+                <property value="7" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="systemName" name="name"/>
+                <property value="${ftp.os}" name="value"/>
+                <property value="8" name="auxiliary;wrapIn"/>
+                <property value="8" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;2">
+                <property value="userAccounts" name="name"/>
+                <property value="9" name="auxiliary;wrapIn"/>
+                <property value="9" name="auxiliary;index"/>
+                <property-collection name="@http://www.springframework.org/schema/beans/list;1">
+                    <property value="10" name="auxiliary;wrapIn"/>
+                    <property value="10" name="auxiliary;index"/>
+                    <property-collection name="@http://www.springframework.org/schema/beans/bean;1">
+                        <property value="org.mockftpserver.fake.UserAccount" name="class"/>
+                        <property value="11" name="auxiliary;wrapIn"/>
+                        <property value="11" name="auxiliary;index"/>
+                        <property-collection name="@http://www.springframework.org/schema/beans/property;3">
+                            <property value="homeDirectory" name="name"/>
+                            <property value="${ftp.home}" name="value"/>
+                            <property value="14" name="auxiliary;wrapIn"/>
+                            <property value="14" name="auxiliary;index"/>
+                        </property-collection>
+                        <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                            <property value="username" name="name"/>
+                            <property value="${ftp.user}" name="value"/>
+                            <property value="12" name="auxiliary;wrapIn"/>
+                            <property value="12" name="auxiliary;index"/>
+                        </property-collection>
+                        <property-collection name="@http://www.springframework.org/schema/beans/property;2">
+                            <property value="password" name="name"/>
+                            <property value="${ftp.password}" name="value"/>
+                            <property value="13" name="auxiliary;wrapIn"/>
+                            <property value="13" name="auxiliary;index"/>
+                        </property-collection>
+                    </property-collection>
+                </property-collection>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;3">
+                <property value="fileSystem" name="name"/>
+                <property value="15" name="auxiliary;wrapIn"/>
+                <property value="15" name="auxiliary;index"/>
+                <property-collection name="@http://www.springframework.org/schema/beans/bean;1">
+                    <property value="org.mockftpserver.fake.filesystem.UnixFakeFileSystem" name="class"/>
+                    <property value="16" name="auxiliary;wrapIn"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                        <property value="createParentDirectoriesAutomatically" name="name"/>
+                        <property value="true" name="value"/>
+                        <property value="17" name="auxiliary;wrapIn"/>
+                        <property value="17" name="auxiliary;index"/>
+                    </property-collection>
+                    <property-collection name="@http://www.springframework.org/schema/beans/property;2">
+                        <property value="entries" name="name"/>
+                        <property value="18" name="auxiliary;wrapIn"/>
+                        <property value="18" name="auxiliary;index"/>
+                        <property-collection name="@http://www.springframework.org/schema/beans/list;1">
+                            <property value="19" name="auxiliary;wrapIn"/>
+                            <property value="19" name="auxiliary;index"/>
+                            <property-collection name="@http://www.springframework.org/schema/beans/bean;1">
+<property value="org.mockftpserver.fake.filesystem.DirectoryEntry" name="class"/>
+<property value="20" name="auxiliary;wrapIn"/>
+<property value="20" name="auxiliary;index"/>
+<property-collection name="@http://www.springframework.org/schema/beans/property;1">
+    <property value="path" name="name"/>
+    <property value="${ftp.dir}" name="value"/>
+    <property value="21" name="auxiliary;wrapIn"/>
+    <property value="21" name="auxiliary;index"/>
+</property-collection>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </property-collection>
+            </property-collection>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="Generate_Files" entity-id="5c9bfccf-7369-47fe-a1a8-0d3b68d26b7b">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="22" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="22" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/quartz/endpoint" name="After 5 sec, 10/sec, 100x" entity-id="Quartz#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="pan" name="jobName"/>
+                    <property name="cronExpression"/>
+                    <property value="1100" name="repeatInterval"/>
+                    <property value="99" name="repeatCount"/>
+                    <property value="5" name="startDelay"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property value="10000" name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/quartz/event-generator-job;0">
+                        <property value="pan" name="groupName"/>
+                        <property value="pan" name="jobGroupName"/>
+                        <property value="24" name="auxiliary;wrapIn"/>
+                        <property value="24" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/quartz/payload;1">
+                            <property value="#[ '' ]" name="text"/>
+                            <property value="25" name="auxiliary;wrapIn"/>
+                            <property value="25" name="auxiliary;index"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </endpoint>
+            <splitter index="26" type="org.mule.tooling.ui.modules.core.pattern.all" name="All" entity-id="All#1">
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.all" name="All" entity-id="All#2"/>
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="27" hadOnlyOneElement="false" entity-id="508d6d00-46a1-40a1-a0fb-fc817dbaa24e">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/parse-template" name="Parse CSV Template" entity-id="Parse Template#1">
+                            <properties>
+<property value="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/main/resources/template-product.csv" name="location"/>
+<property value="28" name="auxiliary;index"/>
+<property value="28" name="auxiliary;index"/>
+<property value="28" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/file/endpoint" name="test/resources/input/[date].csv" entity-id="File#1">
+                            <properties>
+<property value="one-way" name="exchange-pattern"/>
+<property value="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/test/resources/input" name="path"/>
+<property value="#[function:dateStamp].csv" name="outputPattern"/>
+<property name="moveToPattern"/>
+<property name="moveToDirectory"/>
+<property value="29" name="auxiliary;index"/>
+<property name="pollingFrequency"/>
+<property name="fileAge"/>
+<property value="29" name="auxiliary;index"/>
+<property value="29" name="auxiliary;index"/>
+<property value="29" name="auxiliary;index"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property value="29" name="auxiliary;index"/>
+<property name="address"/>
+<property value="10000" name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property value="29" name="auxiliary;index"/>
+<property name="comparator"/>
+<property name="reverseOrder"/>
+<property value="29" name="auxiliary;index"/>
+<property value="29" name="auxiliary;index"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property value="29" name="auxiliary;index"/>
+<property value="29" name="auxiliary;index"/>
+<property value="29" name="auxiliary;index"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="30" hadOnlyOneElement="false" entity-id="052a4aef-f9b7-4fcd-a884-927afabe46e4">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/parse-template" name="Parse Xml Template" entity-id="Parse Template#2">
+                            <properties>
+<property value="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/main/resources/template-panasonic.xml" name="location"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/file/endpoint" name="main/resources/input/[date].xml" entity-id="File#2">
+                            <properties>
+<property value="one-way" name="exchange-pattern"/>
+<property value="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/test/resources/input" name="path"/>
+<property value="[function:dateStamp].xml" name="outputPattern"/>
+<property name="moveToPattern"/>
+<property name="moveToDirectory"/>
+<property value="32" name="auxiliary;index"/>
+<property name="pollingFrequency"/>
+<property name="fileAge"/>
+<property value="32" name="auxiliary;index"/>
+<property value="32" name="auxiliary;index"/>
+<property value="32" name="auxiliary;index"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property value="32" name="auxiliary;index"/>
+<property name="address"/>
+<property value="10000" name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property value="32" name="auxiliary;index"/>
+<property name="comparator"/>
+<property name="reverseOrder"/>
+<property value="32" name="auxiliary;index"/>
+<property value="32" name="auxiliary;index"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property value="32" name="auxiliary;index"/>
+<property value="32" name="auxiliary;index"/>
+<property value="32" name="auxiliary;index"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </splitter>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

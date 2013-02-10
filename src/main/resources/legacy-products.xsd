@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.panasonic.com/prods" xmlns:pan="http://www.panasonic.com/prods" elementFormDefault="qualified">
+
+	<element name="panasonic">
+		<complexType>
+			<sequence>
+				<element name="prod" type="pan:ProdType" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="ProdType">
+		<sequence>
+			<element name="type" type="string" />
+			<element name="sub-type" type="string" />
+			<element name="name" type="string" />
+			<element name="series" type="string" />
+		</sequence>
+		<attribute name="id" type="string" />
+	</complexType>
+
+</schema>

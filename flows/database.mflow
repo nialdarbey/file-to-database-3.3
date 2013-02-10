@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="Database">
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
+        <properties>
+            <property value="propertyPlaceholderConfigurer" name="id"/>
+            <property name="name"/>
+            <property value="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="locations" name="name"/>
+                <property value="3" name="auxiliary;wrapIn"/>
+                <property value="3" name="auxiliary;index"/>
+                <property-collection name="@http://www.springframework.org/schema/beans/list;1">
+                    <property value="4" name="auxiliary;wrapIn"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property-collection name="@http://www.springframework.org/schema/beans/value;1">
+                        <property value="classpath:/config.properties" name=""/>
+                        <property value="5" name="auxiliary;wrapIn"/>
+                        <property value="5" name="auxiliary;index"/>
+                    </property-collection>
+                </property-collection>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#2">
+        <properties>
+            <property value="Derby_Data_Source" name="id"/>
+            <property name="name"/>
+            <property value="org.enhydra.jdbc.standard.StandardXADataSource" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property value="shutdown" name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="6" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="driverName" name="name"/>
+                <property value="org.apache.derby.jdbc.EmbeddedDriver" name="value"/>
+                <property value="7" name="auxiliary;wrapIn"/>
+                <property value="7" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="url" name="name"/>
+                <property value="jdbc:derby:muleEmbeddedDB;create=true" name="value"/>
+                <property value="8" name="auxiliary;wrapIn"/>
+                <property value="8" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/jdbc/connector" name="Database" entity-id="Database#1">
+        <properties>
+            <property value="JDBCConnector" name="name"/>
+            <property value="Derby_Data_Source" name="dataSource-ref to JDBC DataSource"/>
+            <property value="Derby_Data_Source" name="dataSource-ref to Bean"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property name="dispatcherPoolFactory-ref"/>
+            <property name="queryRunner-ref"/>
+            <property name="resultSetHandler-ref"/>
+            <property value="9" name="auxiliary;index"/>
+            <property name="dynamicNotification"/>
+            <property value="true" name="validateConnections"/>
+            <property value="false" name="transactionPerMessage"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="-1" name="queryTimeout"/>
+            <property value="1000" name="pollingFrequency"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/jdbc/query;0">
+                <property value="insert into products(product_group, product_sub_group, series, product_id) values (#[payload.productGroup], #[payload.productSubGroup], #[payload.series], #[payload.productId])" name="value"/>
+                <property value="10" name="auxiliary;wrapIn"/>
+                <property value="10" name="auxiliary;index"/>
+                <property value="insert-products" name="key"/>
+            </property-collection>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/jdbc/query;1">
+                <property value="select * from products where product_group = #[message.inboundProperties['http.query.params'].group]" name="value"/>
+                <property value="11" name="auxiliary;wrapIn"/>
+                <property value="11" name="auxiliary;index"/>
+                <property value="select-products" name="key"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="init_db" entity-id="5d670f64-38a2-40a7-9994-32b869450ffd">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="12" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="12" name="auxiliary;index"/>
+            <property value="12" name="auxiliary;index"/>
+            <property value="12" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name=":8888/db/[init|clean]" entity-id="HTTP#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="8888" name="port"/>
+                    <property value="db" name="path"/>
+                    <property name="method"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                    <property value="13" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <splitter index="14" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
+                <properties>
+                    <property-collection name="c48bd239-6e54-4354-902a-150de4c23f42">
+                        <property value="#[message.inboundProperties['http.relative.path'] == 'init']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[message.inboundProperties['http.relative.path'] == 'init']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="a59e117d-e9ae-472b-a8e9-20d4bfec3323">
+                        <property value="true" name="choice.otherwise"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                </properties>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="16" hadOnlyOneElement="false" entity-id="c48bd239-6e54-4354-902a-150de4c23f42">
+                        <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Create table" entity-id="Groovy#1">
+                            <properties>
+<property value="17" name="auxiliary;index"/>
+<property value="17" name="auxiliary;index"/>
+<property value="17" name="auxiliary;index"/>
+<property value="17" name="auxiliary;index"/>
+<property value="17" name="auxiliary;index"/>
+<property value="17" name="auxiliary;index"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+    <property value="jdbcConnector = muleContext.getRegistry().lookupConnector(&quot;JDBCConnector&quot;);&#xA;                                    qr = jdbcConnector.getQueryRunner();&#xA;                                    conn = jdbcConnector.getConnection();&#xA;qr.update(conn, &quot;CREATE TABLE products (id int generated always as identity, product_group varchar(256), product_sub_group varchar(50), series varchar(30), product_id varchar(50))&quot;);&#xA;                                    return &quot;Initialised&quot;;" name="text"/>
+    <property value="Groovy" name="engine"/>
+    <property value="18" name="auxiliary;wrapIn"/>
+    <property value="18" name="auxiliary;index"/>
+</property-collection>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+    <property value="jdbcConnector = muleContext.getRegistry().lookupConnector(&quot;JDBCConnector&quot;);&#xA;                                    qr = jdbcConnector.getQueryRunner();&#xA;                                    conn = jdbcConnector.getConnection();&#xA;qr.update(conn, &quot;CREATE TABLE products (id int generated always as identity, product_group varchar(256), product_sub_group varchar(50), series varchar(30), product_id varchar(50))&quot;);&#xA;                                    return &quot;Initialised&quot;;" name="text"/>
+    <property value="Groovy" name="engine"/>
+    <property value="18" name="auxiliary;wrapIn"/>
+    <property value="18" name="auxiliary;index"/>
+</property-collection>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="true" index="21" hadOnlyOneElement="false" entity-id="a59e117d-e9ae-472b-a8e9-20d4bfec3323">
+                        <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="Groovy#2">
+                            <properties>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+    <property value="jdbcConnector = muleContext.getRegistry().lookupConnector(&quot;JDBCConnector&quot;);&#xA;                                    qr = jdbcConnector.getQueryRunner();&#xA;                                    conn = jdbcConnector.getConnection();&#xA;                                    qr.update(conn, &quot;delete from products&quot;);&#xA;                                    return &quot;Cleaned&quot;;" name="text"/>
+    <property value="Groovy" name="engine"/>
+    <property value="23" name="auxiliary;wrapIn"/>
+    <property value="23" name="auxiliary;index"/>
+</property-collection>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+    <property value="jdbcConnector = muleContext.getRegistry().lookupConnector(&quot;JDBCConnector&quot;);&#xA;                                    qr = jdbcConnector.getQueryRunner();&#xA;                                    conn = jdbcConnector.getConnection();&#xA;                                    qr.update(conn, &quot;delete from products&quot;);&#xA;                                    return &quot;Cleaned&quot;;" name="text"/>
+    <property value="Groovy" name="engine"/>
+    <property value="23" name="auxiliary;wrapIn"/>
+    <property value="23" name="auxiliary;index"/>
+</property-collection>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </splitter>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

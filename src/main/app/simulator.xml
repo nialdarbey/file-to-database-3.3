@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+
+	<spring:beans>
+		<spring:bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<spring:property name="locations">
+				<spring:list>
+					<spring:value>classpath:/config.properties</spring:value>
+				</spring:list>
+			</spring:property>
+		</spring:bean>
+		<spring:bean id="fakeFtpServer" class="org.mockftpserver.fake.FakeFtpServer" init-method="start">
+			<spring:property name="serverControlPort" value="${ftp.port}" />
+			<spring:property name="systemName" value="${ftp.os}" />
+			<spring:property name="userAccounts">
+				<spring:list>
+					<spring:bean class="org.mockftpserver.fake.UserAccount">
+						<spring:property name="username" value="${ftp.user}" />
+						<spring:property name="password" value="${ftp.password}" />
+						<spring:property name="homeDirectory" value="${ftp.home}" />
+					</spring:bean>
+				</spring:list>
+			</spring:property>
+			<spring:property name="fileSystem">
+				<spring:bean class="org.mockftpserver.fake.filesystem.UnixFakeFileSystem">
+					<spring:property name="createParentDirectoriesAutomatically" value="true" />
+					<spring:property name="entries">
+						<spring:list>
+							<spring:bean class="org.mockftpserver.fake.filesystem.DirectoryEntry">
+								<spring:property name="path" value="${ftp.dir}" />
+							</spring:bean>
+						</spring:list>
+					</spring:property>
+				</spring:bean>
+			</spring:property>
+		</spring:bean>
+	</spring:beans>
+
+	<flow name="Generate_Files" doc:name="Generate_Files">
+		<quartz:inbound-endpoint jobName="pan" repeatInterval="1100" repeatCount="99" startDelay="5" responseTimeout="10000" doc:name="After 5 sec, 10/sec, 100x">
+			<quartz:event-generator-job groupName="pan" jobGroupName="pan">
+				<quartz:payload>#[ '' ]</quartz:payload>
+			</quartz:event-generator-job>
+		</quartz:inbound-endpoint>
+		<all doc:name="All">
+			<processor-chain>
+				<parse-template location="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/main/resources/template-product.csv" doc:name="Parse CSV Template" />
+				<file:outbound-endpoint path="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/test/resources/input" outputPattern="#[function:dateStamp].csv" responseTimeout="10000" doc:name="test/resources/input/[date].csv" />
+			</processor-chain>
+			<processor-chain>
+				<parse-template location="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/main/resources/template-panasonic.xml" doc:name="Parse Xml Template" />
+				<file:outbound-endpoint path="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/test/resources/input" outputPattern="[function:dateStamp].xml" responseTimeout="10000" doc:name="main/resources/input/[date].xml" />
+			</processor-chain>
+		</all>
+	</flow>
+
+
+</mule>

@@ -1,0 +1,14 @@
+<panasonic xmlns="http://www.panasonic.com/prods">
+	<prod id="1">
+		<type>Tv</type>
+		<sub-type>Plasma</sub-type>
+		<name>TX-p65vt50e</name>
+		<series>VT</series>
+	</prod>
+	<prod id="2">
+		<type>Tv</type>
+		<sub-type>Lcd</sub-type>
+		<name>TX-p65vt50e</name>
+		<series>VT</series>
+	</prod>
+</panasonic>

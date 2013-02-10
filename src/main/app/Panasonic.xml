@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:jdbc-ee="http://www.mulesoft.org/schema/mule/ee/jdbc" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:ftp="http://www.mulesoft.org/schema/mule/ee/ftp" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
+http://www.mulesoft.org/schema/mule/ee/jdbc http://www.mulesoft.org/schema/mule/ee/jdbc/current/mule-jdbc-ee.xsd 
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd 
+http://www.mulesoft.org/schema/mule/ee/ftp http://www.mulesoft.org/schema/mule/ee/ftp/current/mule-ftp-ee.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd 
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd 
+http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd ">
+    <data-mapper:config name="Csv_to_Xml" transformationGraphPath="csv_to_xml.grf" doc:name="DataMapper"/>
+    <mulexml:xml-prettyprinter-transformer xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" name="XmlPrettyPrinter" doc:name="XmlPrettyPrinter"/>
+    <data-mapper:config name="Legacy_Xml_to_Canonical_Xml" transformationGraphPath="legacy_xml_to_canonical_xml.grf" doc:name="DataMapper"/>
+    <jdbc-ee:maps-to-xml-transformer name="mapsToXmlTransformer" doc:name="Maps to XML"/>
+    <jdbc-ee:xml-to-maps-transformer name="xmlToMapsTransformer" doc:name="XML to Maps"/>
+    <object-to-string-transformer name="objectToStringTransformer" doc:name="Object to String"/>
+   <flow name="File_to_Xml" doc:name="File_to_Xml">
+        <file:inbound-endpoint responseTimeout="10000" doc:name="*.xml | *.csv" path="/Users/nialdarbey/MuleStudio/workspace/panasonic/src/test/resources/input">
+            <file:filename-regex-filter pattern=".+\.(xml|csv)" caseSensitive="true"/>
+        </file:inbound-endpoint>
+        <choice doc:name="Choice">
+            <when expression="#[message.inboundProperties.originalFilename.endsWith('.csv')]">
+                <processor-chain>
+                    <data-mapper:transform config-ref="Csv_to_Xml" doc:name="Csv to Canonical Xml"/>
+                </processor-chain>
+            </when>
+            <otherwise>
+                <processor-chain>
+                    <data-mapper:transform config-ref="Legacy_Xml_to_Canonical_Xml" doc:name="DataMapper"/>
+                </processor-chain>
+            </otherwise>
+        </choice>
+        <ftp:outbound-endpoint host="${ftp.host}" port="${ftp.port}" responseTimeout="10000" doc:name="FTP" password="${ftp.password}" path="${ftp.dir}" user="${ftp.user}"/>
+        <mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5" doc:name="Xml to Batch Xml" xsl-file="XmlToJDBC.xsl"/>
+        <jdbc-ee:outbound-endpoint transformer-refs="xmlToMapsTransformer" queryKey="insert-products" queryTimeout="-1" doc:name="Database" connector-ref="JDBCConnector"/>
+    </flow>
+    <flow name="Product_WebService" doc:name="Product_WebService">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="products" doc:name="HTTP" responseTransformer-refs="XmlPrettyPrinter objectToStringTransformer"/>
+        <jdbc-ee:outbound-endpoint responseTransformer-refs="mapsToXmlTransformer" queryKey="select-products"  exchange-pattern="request-response" queryTimeout="-1" doc:name="select * from products where ..." connector-ref="JDBCConnector">
+            <jdbc-ee:transaction action="ALWAYS_BEGIN"/>
+        </jdbc-ee:outbound-endpoint>
+        <mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5" xsl-file="JDBC_to_Xml.xsl" doc:name="JDBC to Canonical Xml"/>
+    </flow>
+
+
+</mule>

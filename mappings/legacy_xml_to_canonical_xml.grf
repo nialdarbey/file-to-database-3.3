@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="nialdarbey" created="Fri Sep 14 14:38:32 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1347914588312" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri Sep 14 14:38:32 GMT-03:00 2012" modifiedBy="nialdarbey" name="Legacy Xml to Canonical Xml" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __sourcePath="{http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="ProdType" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod/ns0:type" label="ns0:type" name="ns0_type" type="string"/>
+<Field __sourcePath="{http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod/ns0:sub-type" label="ns0:sub-type" name="ns0_sub_type" type="string"/>
+<Field __sourcePath="{http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod/ns0:name" label="ns0:name" name="ns0_name" type="string"/>
+<Field __sourcePath="{http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod/ns0:series" label="ns0:series" name="ns0_series" type="string"/>
+<Field __sourcePath="{=,http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod/@id" label="id" name="id" type="string"/>
+<Field __sourcePath="{=,http://www.panasonic.com/prods=ns0}/ns0:panasonic/ns0:prod/@dimension" containerType="" label="dimension" name="size" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{http://www.panasonic.net/products=ns0}/ns0:products/ns0:product" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata1">
+<Record fieldDelimiter="|" name="Product" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{http://www.panasonic.net/products=ns0}/ns0:products/ns0:product/ns0:productGroup" label="ns0:productGroup" name="ns0_productGroup" type="string"/>
+<Field __sourcePath="{http://www.panasonic.net/products=ns0}/ns0:products/ns0:product/ns0:type" label="ns0:type" name="ns0_type" type="string"/>
+<Field __sourcePath="{http://www.panasonic.net/products=ns0}/ns0:products/ns0:product/ns0:series" label="ns0:series" name="ns0_series" type="string"/>
+<Field __sourcePath="{http://www.panasonic.net/products=ns0}/ns0:products/ns0:product/ns0:id" label="ns0:id" name="ns0_id" type="string"/>
+<Field __sourcePath="{=,http://www.panasonic.net/products=ns0}/ns0:products/ns0:product/@size" containerType="" label="size" name="size" type="number"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="XML WRITER" guiWidth="0" guiX="680" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/products.xsd">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ns0:products xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.panasonic.net/products">
+  <ns0:product size="$0.size" clover:inPort="0">
+    <ns0:productGroup>$0.ns0_productGroup</ns0:productGroup>
+    <ns0:type>$0.ns0_type</ns0:type>
+    <ns0:series>$0.ns0_series</ns0:series>
+    <ns0:id>$0.ns0_id</ns0:id>
+  </ns0:product>
+</ns0:products>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiHeight="0" guiName="ns0:prod_to_ns0:product" guiWidth="0" guiX="240" guiY="20" id="REFORMAT0" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.size = (isnull($in.0.size) ? 0 : str2double($in.0.size));
+	$out.0.ns0_id = $in.0.ns0_name;
+	if ($in.0.ns0_type == 'Plasma') {
+		$out.0.ns0_type = 'TV - PLASMA';
+	} else {
+		$out.0.ns0_type = $in.0.ns0_sub_type;
+	}
+	$out.0.ns0_productGroup = $in.0.ns0_type;
+	$out.0.__id = $in.0.__id;
+	$out.0.ns0_series = $in.0.ns0_series;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="XML READER" guiWidth="0" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/legacy-products.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://www.panasonic.com/prods&quot;" outPort="0" sequenceField="__id" xpath="/ns0:panasonic/ns0:prod">
+  <Mapping cloverField="ns0_type" namespacePaths="ns0=&quot;http://www.panasonic.com/prods&quot;" trim="true" xpath="ns0:type"/>
+  <Mapping cloverField="ns0_sub_type" namespacePaths="ns0=&quot;http://www.panasonic.com/prods&quot;" trim="true" xpath="ns0:sub-type"/>
+  <Mapping cloverField="ns0_name" namespacePaths="ns0=&quot;http://www.panasonic.com/prods&quot;" trim="true" xpath="ns0:name"/>
+  <Mapping cloverField="ns0_series" namespacePaths="ns0=&quot;http://www.panasonic.com/prods&quot;" trim="true" xpath="ns0:series"/>
+  <Mapping cloverField="id" trim="true" xpath="@id"/>
+  <Mapping cloverField="size" trim="true" xpath="@dimension"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT0:0"/>
+</Phase>
+</Graph>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pan:panasonic xmlns:pan="http://www.panasonic.com/prods" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.panasonic.com/prods legacy-products.xsd ">
+  <pan:prod id="1">
+    <pan:type>Tv</pan:type>
+    <pan:sub-type>Plasma</pan:sub-type>
+    <pan:name>pan:name</pan:name>
+  </pan:prod>
+  <pan:prod id="2">
+    <pan:type>Micro Audio</pan:type>
+    <pan:sub-type></pan:sub-type>
+    <pan:name></pan:name>
+  </pan:prod>
+  <pan:prod id="3">
+    <pan:type>Tv</pan:type>
+    <pan:sub-type>Plasma</pan:sub-type>
+    <pan:name>pan:name</pan:name>
+  </pan:prod>
+  <pan:prod id="4">
+    <pan:type>Mini Audio</pan:type>
+    <pan:sub-type></pan:sub-type>
+    <pan:name></pan:name>
+  </pan:prod>
+  <pan:prod id="5">
+    <pan:type>Tv</pan:type>
+    <pan:sub-type>Lcd</pan:sub-type>
+    <pan:name>t-123</pan:name>
+  </pan:prod>
+  <pan:prod id="6">
+    <pan:type>Camera</pan:type>
+    <pan:sub-type>Digital</pan:sub-type>
+    <pan:name>x1234</pan:name>
+  </pan:prod>
+</pan:panasonic>

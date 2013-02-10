@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.panasonic.net/products" xmlns:pan="http://www.panasonic.net/products" elementFormDefault="qualified">
+
+	<element name="products">
+		<complexType>
+			<sequence>
+				<element name="product" type="pan:Product" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="Product">
+		<sequence>
+			<element name="productGroup" type="pan:ProductGroupType" />
+			<element name="type" type="string" />
+			<element name="series" type="string" />
+			<element name="id" type="string" />
+		</sequence>
+	</complexType>
+
+	<simpleType name="ProductGroupType">
+		<restriction base="string">
+			<enumeration value="Tv" />
+			<enumeration value="Blu-ray / Dvd" />
+			<enumeration value="Camera" />
+			<enumeration value="Micro Audio" />
+			<enumeration value="Mini Audio" />
+		</restriction>
+	</simpleType>
+</schema>
